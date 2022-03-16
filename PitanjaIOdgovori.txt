@@ -1,0 +1,266 @@
+﻿1. Nije mi ovo jeasno:
+
+3.5.	Šifrarnik Uloga zaposlenika (tj. Radnih mjesta)
+
+2. Ne razumijem ovo:
+
+3.	Prilozi
+
+3.1.	Administracija dozvoljenog broja dana u mjesecu
+Polje dozvoljeni broj dana u mjesecu se nalazi kao konfiguraciji parametar u bazi. Izmjene radi ažuriranjem podataka u bazi djelatnik Direkcije za razvoj aplikacijskih sustava. 
+Izmjena nema nikakav utjecaj na veæ kreirane zahtjeve -- jesam
+
+3.2.	Administracija dozvoljenog broja dana za odobrenje
+Polje dozvoljeni broj dana u za odobravanje se nalazi kao konfiguraciji parametar u bazi. Izmjene radi ažuriranjem podataka u bazi djelatnik Direkcije za razvoj aplikacijskih sustava. 
+-- ovo gore je da ide nalog u status neobraðeno nakon nekoliko dana, broj dana kada prelazi u neobraðeno je bazi negdje
+-- bude to neki job odradio
+Izmjena ima direktan utjecaj na sve zahtjeve u statusu Za odobravanja. 
+-- jesam
+
+
+4. VPN spajanje se može pratiti putem logova koje sustav Splunk 
+na zahtjev dostavlja u strukturiranoj formu u .csv formatu na mail definiranoj osobi.
+
+-- probat ipak vidjeti gdje se generira csv
+
+5. Popis polja zahtjeva, fali Flexi datum?
+
+6.	Podatak o organizacijskoj jedinici kojoj podnositelj zahtjeva pripada se automatski pohrani
+-- da  prikažemo na novom zahtjevu readonly polje organizacijska jedinica, bilo bi dobro !!!
+
+7. Podatak Podnositelj zahtjeva se automatski popunilo s podacima korisnika koji je kreirao zahtjev
+	Status zahtjeva je automatski postavljen u status Za odobravanje, popis svih dostupnih statusa dostupan je u poglavlju Šifrarnik Status
+	Polje Datum i vrijeme podnošenja zahtjeva otvaranje se automatski popunilo.
+	Oæemo to isto kao read only polja pri donošenju novog naloga da korisnik vidi ???? Bilo bi dobro!!!
+
+8. Ja bi da uvijek može snimiti zahtjev bez obzira što nije zadovoljio uvijete, možemo mu pokazati upozorenja,
+npr iskoristili ste sve dane u mjesecu itd.
+-- to je dogovoreno, sa tim da defaultno voditelji vide samo one naloge koji su ispravni, a dodatno mogu promijeniti
+filter da vide i one naloge koji nisu prošli dozvoljene uvijete
+
+9. organizacijskoj jedinici  - snimiti to u bazu u tabelu zahtjevi ??? -- napravljeno
+ -- ako se sve može override, onda mora moæi snimiti bez obzira na upozorenja !!!!!
+
+ 10. 1.	Zahtjevu se nakon 8*{Uneseni broj dana za odobrenje} od datuma postavljanja zahtjeva status 
+ automatski prebaci u Neobraðen
+ -- to neki job napraviti ?
+
+ -- provjera claima kroz kod: 
+
+if (principal.HasClaim("Division", "Western"))
+{
+    CustRepository.UpdateCustomer(cust);
+}-- jesam
+
+11. Kako æe mo prikazivati razlog odbijanja, to korisnik vidi?
+
+12. Datum otvaranja, to korisnik vidi kod kreiranja novog zahtjeva (da bude datum.now()????),
+ili je to datum kada se stisne snimi ???? ili obadva, kod edita prikažem ga uvijek naravno ??? -- napravljeno
+
+13. Jednom kad preda nema edita ??? Tako je, nema edita.
+
+14. Datum otvaranje je svim read only, èak i administratorima ??? Tako je.
+
+15. Odobravatelj isto ??? Da. To je read only polje,
+
+16. Razlog odbijanja obavezan ako se nalog odbije ????? da , odbija se tako da se promijeni status
+zahtjeva u odbijen, i onda se obavezno mora upisati polje razlog odbijanja, ako je neki drugi status
+onda je to polje disejblano i neobavezno za upis. 
+
+17. dodati kalendar -- jesam, formatiraj prikaz datuma -- jesam, back gumb, odustani gumb -- jesam, paginaciju, filter formu na vrhu, import excel datuma, prava,
+makni time portion od Flexi datum, validaciju polja, prevesti na hrvatski !!!! -- jesam
+
+18. Webex- kako napraviti tu prezentaciju?
+
+19. Brisanje omoguæiti ??? Ako da, budemo samo deaktivirali zapis, active = 0
+
+20. Dodaj u zahtjev tabelu, createddate, modifieddate, rowcreatedby, rowmodifiedby-- dodano
+
+21. Dodati temporal table, da pratimo history svih izmjena ???? -- netreba
+
+22. dodati kolone ime i prezime (odobravatelj ime, odobravatelj prezime, podnositelj ime podnositelj prezime) -- jesam
+
+23. treba li prikazati i login hanfa\iborota, vjerojatno ne !!!!! -- ne
+
+24. Poslati mail podnositelju mail-a -- jesam
+
+26. Dogovoreno je da se snimi u bazu i org jed odobravatelja -- jesam
+
+27. Dodati polja modified by i modifieddate kod administracijskih postavki 
+-- logirao sam u log fajlu ovaj import
+-- za administraciju dodati novu formu gdje æe se podešavati parametri aplikacije kao broj dana kada
+zahtjev ide u status neobraðen ili broj dana u mjesecu dozvoljen za rad od kuæe ili import excela sa neradnim danima -- jesam
+
+
+------------------ 30.9.2020 -----------------
+1. Kako id odobravanje, multi level? ili npr. samo ti meni odobravaš nemora GT ???
+Mora li samo ti odoboriti ili morate obadva ??? i ti i GT?
+Može li GT umjesto tebe, makar piše odobravatelj Nika, ako ona odobri ostavim odobravatelj Nika
+i stavim novo polje odobrio GT ili samo zamjenim tebe u polje odobravatelj sa GT?
+-- nema multi level
+-- ako odobri GT umjesto Nike, prebriši polje odobravatelj sa GT (pobriši Nika)
+
+2. Kod filitrianja zahtjeva po statusu, dodam novi status neispravni ili stavim u čekanju i dodam
+novi filter "neispravni", "ispravni"? -- dodaj novi filter pored comba za status zahtjeva, default je "Ispunjavaju uvijete".
+
+3. ako npr gt nema iznad nikoga za odobravanje (null), da stavim nju za odobravatelja ???
+--to treba ispitiati, uglavnom uprava odobra, ali tko od njih, Žigman?
+-- vidi zašto view ne vraća upravu za odobravatelja za nju sutra naposlu !!!!!!	-- manager je null , zato
+cte ne prizna left join na recursion portion of cte -- jesam, prezentator@hanfa.hr za sada
+
+4. Zamjeni logout user sa Korisnik bez logout: user -- jesam
+
+6. ispravni i za odobravanje je default za listu početnu, stavi još jedan filter ispunjavaju uvijete (i neispunjavaju uvjete)
+7. dodaj u kombo i odabir "svi zahtjevi" -- jesam	
+
+8. Prava : ako postoje 2 nivoa iznad radnika (re računam upravu kao nivo prvi),
+onda normalno voditelj odobrava svojim radnicima (npr. Niki), Niki odobrava GT, GT-u uprava.
+Znači to je normalno. -- da
+
+Ako postoje 3 nivoa, npr nina, marija pa orlovac, onda nini i njezinim odobrava marija,
+mariji odobrava orlovac
+
+Ovo je Hijerarhije
+1.	Upravno vijeće
+2.	Direktori Ureda, Sektora, Glavni tajnik
+3.	Voditelji Direkcija
+4.	Voditelji Odjela
+
+Znači ovako: 
+1.	Upravno vijeće odobrava samo sebi (1-1)
+2.	Upravno vijeće odobrava Glavnoj tajnici, direktorima sektora i ureda (1-2)
+3.	Direktori sektora, ureda i glavni tajnik odobravaju voditeljima direkcija (2-3)
+4.	Voditelji direkcija odobravaju svim zaposlenicima niže (3->00)
+5.	Voditelji Odjela se ne računaju
+
+Članovi UV-a mogu svi ravnopravno odobravati. 
+Vršitelji dužnosti se ne razlikuju od službeno imenovanih voditelja.
+Dodatne ovlasti odobravanja moraju imati zaposlenici HR-a.
+Direktor Sektora, Ureda ili Glavni tajnik može odobriti umjesto voditelj direkacije.
+
+-- može li član uprave sam sebi odobriti ili nemože?,. mora li biti drugi član uprave ???? -- otvoreno
+-- imamo mi uopće odjele? -- imamo, treba uvijek gledati na resoultion, idem tamo bazu stvoriti
+-- može li upravno vijeće odboriti umjesto voditelja direkcije ??? -- može
+
+1.	Običan korisnik:
+a.	Korisnik koji može unijeti novi zahtjev te pregledavati i po potrebi promijeniti podatke zahtjeva
+2.	Voditelj 
+a.	Korisnik koji može pregledavati sve zahtjeve koje je njegovi djelatnici unijeli te ih odobriti ili odbiti
+3.	Administrator
+a.	Korisnici koji imaju mogućnost pregleda svih zahtjeva iz cijele Hanfe
+
+-- brzo pitanje: excel import su praznici + hanfa praznici, ili bi mogli sve nedozvoljene datume unjeti
+da se ne mislimo, drugi misle za nas !!!! -- napunit će mo sa zabranjenim sranjima (pon , zadnji u mj itd.)
+
+-- zaposlenici HR-a, jer su svi automatski admin, ili samo neke unosimo u moju tabelu Admin ???
+-- riješi admine, i napravi storu , putanju ou radnika koji radi nalog dodaj u tabelu da bi mogao 
+usporediti sa putanjom ou tipa koji pokušava odobriti nalog !!!! -- jesam
+
+-- proces autorizacije:
+1. prvo provjeri da li je admin -- jesam, i njemu sam učitaao claimove
+2. ako nije učitaj iz store što je i ulogu i učitaj mu claimove, ulogu, putanju itd ... -- jesam
+3. ako tvoja putanja (onaj koji je napravio nalog), počinje kao njegova (starts with),
+i on je voditelj, i  level njegove organizacije nije 4 (odjel), onda ima prava on na odobravanje zahtjeva.
+4. Stora za podatke o user-u mora naći odobravatelja, nesmje biti level 4!!!! -- stavio sam u stori ako je level 3 da je obični korisnik
+5. u   [HttpPost]
+        public IActionResult Create(ZahtjevCreateViewModel model)
+		Zamjeni poziv store sa klaimovima, zove se stora samo kod login usera, napuni claimove!!! -- jesam
+6. šta je sa adminima, ko njima odobrava !!!! ?????, moze li on sam sebi odobriti ???? ili mora
+biti drugi admin ??? ili njegov voditelj ??? -- nemože sam sebi, mora biti neko drugi
+koja je razlika izmedju admina i uprave ??? koja!!!! -- nema, skoro isti
+7. sredi where dio kod details da vide samo svoje zahtjeve !!!! -- jesam
+-- za kadić je odobravatelj null jer je to uprava koja nema managerid, da onda stavim odobravatelja Uprava za nju? -- da, jesam
+-- stavi ako je manager null da je odobravatelj "Član Upravnog vijeća"-- jesam
+-- ako sam ja admin šta da stavim kao odobravatelja ??? -- sljedi hijerarhiju svejedno što si admin
+-- koja je uloga člana uprave, voditelj???? - da
+-- hyperion, stavi bazu , hyperion stavi .net core app -- jesam
+-- stavi osim user name na početnoj stranici i ulogu !!!! -- jesam
+-- pederu nisi dodao da svatko vidi samo svoje naloge., admin može sve vidjeti 
+-- where dio, putanja starts with za voditelje !!! -- nisam user=korisnik može vidjeti samo svoje -- jesam
+-- dodaj kad neko edit i snimi, stavi njega kao odobravatelja -- jesam
+
+-- stavi u stori da je level 3 voditelj, level 3 može vidjeti samo svoje zahtjeve u gridu ???
+ali dodaj u authorizaciji da nemože edit ako je level 3 !!! -- pitaj to Niku, možda to netraba !!!
+-- uljepšaj index stranu sa onim ljepim download kodom , stavi card !!!! -- jesam
+-- stavi globalni error handler, i mailaj si grešku !!! -- već imam nekakav i radi !!!
+
+-- stavio sam da odobravatelj bude current user ako je editirao i snimio zahtjev !!!! -- jesam
+-- pitaj Niku kako da izgleda mail podnostitelju zahtjeva nakon promjene statusa !!!! -- jesam, sklempao sam nešto
+-- stavi filter za zahtjeve , od do datum otvaranja i ispravnost
+
+1. Dodaj na index formi, details gumb, tako da se vidi read only details, i kad se promjeni status
+da se korisniku mail-a link na details !!! -- jesam
+-- stavi druga polja, status npr textbox da bude. -- jesam
+
+4. Treba u zahtjev tabelu dodati odobravatelj email, na create, da mu pošalješ mail. -- jesam
+5. Ako član uprave napravi zahtjev, koji je email odobravatelja ??? (ima li uprava neku grupni email?) -- jesam, prezentator@hanfa.hr
+-- kako da pošaljem mail odobravatelju kad neznam ko je ??? -- jesam, prezentator@hanfa.hr
+-- stavit ću za sada upravaaaaa@hanfa.hr -- stavi da se šalje na prezentator@hanfa.hr -- jesam
+-- poslje će se vjerojatno dedicirati jedan email uprave gdje se šalju svi ti mailovi za nove zahtjeve -- jesam
+-- stavi u config vrijeme refreshanja prava ili u bazu ??? -- jesam,  baza
+-- stavi policy na view details -- jesam
+6. ako je nika odobravatelj meni, a odobri admin ili komadina, šaljem i niki mail da je nešto -- jesam
+u zahtjevu promijenjeno ???? (znači 3 osobe, 3 maila) -- da, šalji na sve 3 osobe, pazi -- jesam
+ako je odobrio pravi odobravatelj da ne pošalješ 2 ista maila odobravatelju -- jesam
+
+--------------- 23.09.2020. ----------------------------------------
+-- Kod filtera combo ou podnositelja, stavi samo one kojima pripada podnositelj, ne sve -- ne , ponudi sve
+-- Isto i sa odobravateljima, ponudi samo NJEGOVE odobravatelje. -- ne, ponudi sve
+-- stavi u filter komboiam da je item "sve" na vrhu, to je standard -- jesam
+-- ako brišemo cijeli datume tabelu kod importa, gubimo povijest, šta napraviti ???
+-- stavi još filtera, tipa org jed podnositelja zahtjeva !!!, org jedinica odobravatelja, odobravatelj ime prezime datum od do, broj zapisa, ispunjava uvijete --jesam
+-- Stavi kombo da ljudi imaju prava na izbor koliko zapisa će se prikazati, sad je hardcoded
+-- Importirati radna mjesta sa oznakom da li ide radni nalog ili ne za to mjesto
+-- Popis radnih mjesta preuzima se iz baze matiènih podataka. Popis je potrebno ažurirati binarnom indikacijom
+--je li za to radno mjesto dozvoljeno podnošenje zahtjeva ili nije. 
+-- Rbr	Uloga zaposlenika	Dozvoljen zahtjev
+-- ID	string	boolean
+-- Kod dodavanja nove uloge u bazu matiènih podataka, podatak o tome je li za radno mjesto dozvoljen zahtjev ili ne,
+-- trebati æe ažurirati. -- jesam
+-- Kada ide poruka, nemože radni nalog za to mjesto?
+-- testirati aplikacija na adresi: 
+-- kako napraviti izvještaj rssr ili embeded report???? ssrs napraviti na hyperion
+-- http://bp2test.hanfa.local/
+-- pitati Niku što su to radna mjesta ???	-- jesam , to su uloge
+-- još nemaš sortiranje po kolonama !!! -- drugi put
+-- pitaj niku koji su još filteri važni na početnoj stranici, datum otvaranja, datum odsustav??? -- jesam
+-- Znači po meni svi kolone u filtre, osim Detalji i Promijeni. -- odgovor Nika -- jesasm
+-- očemo kod importa radnih mjesta staviti samo one za koje nisu dozvoljeni zahtjevi, bit će ih manje
+i lakše je ažurirati !!!! --da -- jesam
+-- dodaj ulogu u storu bp2 podaci o  radniku - ulogu, opet moram mjenjati storu !!!! -- jesam
+-- dodaj otvoreni combo za neradna mjesta, pa neka sami checkiraju koja nisu za zahtjev jesam
+
+
+-3 razloga neispravnosti:
+
+1. datum koji je odabrao je u excelu - to moram na klijetskoj strani
+2. prebacio je mjesečnu kvotu rada od doma - to mogu popuniti već na serverskoj strani
+3. za to radno mjesto nije predviđen rad od doma - to mogu popuniti već na serverskoj strani
+-- mogu staviti neki div na dnu sa validacijskim porukama sa crvenom bojom
+
+-- parametar dozvoljeni broj dana u mjesecu se odnosi na broj odobrenih zahtjeva, a ne na ukupni broj zahtjeva koji
+je djelatnik podnio (uključujući neodobrene, neobrađene itd....) ???
+-- koji dio gledam tu broj dana u mjesecu za koji želi biti doma(Flexi datum) ili datum otvaranja zahtjeva u mjesecu???
+-- gledaš broj odobrenih zahtjeva gdje je Flexi datum u istom mjesecu !!!!!!
+
+Korisnik ne može odabrati datum unutar radnog tjedna kod postavljanja zahtjeva za odsustvom u istom tjednu već samo za nadolazeći tjedan, a vodeći računa o prethodnom uvjetu.
+????
+
+-- u uputstvima za korisnike stava da se u IE 11 compatibility view settings makne kvačica sa use microsoft compatibility lists
+
+-- ispravio sam bug gdje se ne šalje mail starom odobravatelju, ako novi odobravatelj preuzme -- treba to testirati
+
+
+9.10.2020
+napravi dva nova statusa za zahtjev,  Obrisan (korisnik postavlja kad je Neispravan ili Za odobravanje) i Otkazan (Korisnik može promijeniti ako je u statusu Odobren) -- jesam
+-- dodati na index akciju zajedničku delete/cancel, napravi authorizaciju -- jesam
+-- dodati strelice na kalendar !!!! -- jesam
+-- dodati confirmation dialog na obriši i otkaži !!!! -- jesam
+-- dodaj da se report otvara u novom tabu -- jesam
+-- stavi da se hangfire može otvoriti samo lokalno -jesam
+-- bundlaj skripte
+-- Izvještaj iz poglavlja 2.12. funkcionalne specifikacije?
+-- Excel srediti za import datuma
+
+-- 1.11.2021 bi trebao ići live, voditelji mogu blokirati ljude da nemogu predavati izvještaj (možda checkbox list sa više ljudi).
+-- kontrola čet. pet. se ukida

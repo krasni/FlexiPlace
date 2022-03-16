@@ -1,0 +1,27 @@
+﻿@model List<FlexiPlace.ViewModels.RadnaMjestaHanfaViewModel>
+
+<form method="post">
+    <div class="card">
+        <div class="card-header">
+            <h2>Neradna mjesta</h2>
+        </div>
+        <div class="card-body">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="form-check m-1">
+                    <input type="hidden" asp-for="@Model[i].RadnoMjestoNaziv" />
+                    <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+                    <label class="form-check-label" asp-for="@Model[i].IsSelected">
+                        @Model[i].RadnoMjestoNaziv
+                    </label>
+                </div>
+            }
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        <div class="card-footer">
+            <input type="submit" value="Spremi" class="btn btn-primary"
+                   style="width:auto" />
+            <a asp-controller="Zahtjev" asp-action="Index" class="btn btn-primary">Odustani</a>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,31 @@
+﻿@model ZahtjevDetailsViewModel
+
+@{
+    ViewBag.Title = "Detalji";
+}
+
+    <input hidden asp-for="StatusNaziv" />
+    <input hidden asp-for="ReturnUrl" />
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Podnositelj: @Model.ImePrezimePodnositelj</h3>
+        </div>
+
+        <div class="card-body">
+            <h4>Id: @Model.Id</h4>
+            <h4>Organizacijska jedinica: @Model.OrganizacijskaJedinicaPodnositelj</h4>
+            <h4>Odobravatelj: @Model.OdobravateljImePrezime</h4>
+            <h4>Datum i vrijeme otvaranja: @Model.DatumOtvaranja</h4>
+            <h4>Flexi datum: @Model.DatumOdsustva.ToString("dd.MM.yyyy")</h4>
+            <h4>Flexi vrijeme od: @Model.VrijemeOdsustvaOd.ToString("HH:mm")</h4>
+            <h4>Flexi vrijeme do: @Model.VrijemeOdsustvaDo.ToString("HH:mm")</h4>
+            <h4>Komentar: @Model.Komentar</h4>
+            <h4>Status: @Model.StatusNaziv</h4>
+            <h4>Razlog odbijanja: @Model.RazlogOdbijanja</h4>
+        </div>
+
+        <div class="card-footert">
+            <a href="@Model.ReturnUrl" class="btn btn-primary">Povratak</a>
+        </div>
+    </div>  

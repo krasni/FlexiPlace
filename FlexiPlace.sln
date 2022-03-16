@@ -1,0 +1,80 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30330.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlexiPlace", "FlexiPlace\FlexiPlace.csproj", "{7F740FB6-79E8-486A-A4D2-9889DB11D560}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dokumentacija", "Dokumentacija", "{E9054283-EF34-4F43-9A4B-1BD8E10989F0}"
+	ProjectSection(SolutionItems) = preProject
+		Dokumentacija\Funkcionalna specifikacija_Flexi_Place.docx = Dokumentacija\Funkcionalna specifikacija_Flexi_Place.docx
+		NeRadniDani.xlsx = NeRadniDani.xlsx
+		PitanjaIOdgovori.txt = PitanjaIOdgovori.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{2364E5B7-3A8D-428C-9B8E-18C1A497B1E7}"
+	ProjectSection(SolutionItems) = preProject
+		SQL\BP_GetEmployeeHierarchy.sql = SQL\BP_GetEmployeeHierarchy.sql
+		SQL\glavniUpit.sql = SQL\glavniUpit.sql
+		SQL\slaganjeMultipleZahtjevInsert.sql = SQL\slaganjeMultipleZahtjevInsert.sql
+		SQL\SlaganjeSigrunosti.sql = SQL\SlaganjeSigrunosti.sql
+		SQL\slaganjeSigurnostiNovi.sql = SQL\slaganjeSigurnostiNovi.sql
+		SQL\spGetUserDataBP2.sql = SQL\spGetUserDataBP2.sql
+		SQL\vjezbaHierarchy.sql = SQL\vjezbaHierarchy.sql
+		SQL\vw_KontoPregledZahtjeva.sql = SQL\vw_KontoPregledZahtjeva.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexiPlaceWinServiceTopShelf", "FlexiPlaceWinServiceTopShelf\FlexiPlaceWinServiceTopShelf.csproj", "{2AE252C3-4905-4A1E-8CF7-554CF0A2106B}"
+EndProject
+Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "FlexiPlaceReports", "FlexiPlaceReports\FlexiPlaceReports.rptproj", "{E01991DA-7D23-4ABF-A99F-A4F34390745D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		DebugLocal|Any CPU = DebugLocal|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7F740FB6-79E8-486A-A4D2-9889DB11D560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F740FB6-79E8-486A-A4D2-9889DB11D560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F740FB6-79E8-486A-A4D2-9889DB11D560}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F740FB6-79E8-486A-A4D2-9889DB11D560}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
+		{7F740FB6-79E8-486A-A4D2-9889DB11D560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F740FB6-79E8-486A-A4D2-9889DB11D560}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AE252C3-4905-4A1E-8CF7-554CF0A2106B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AE252C3-4905-4A1E-8CF7-554CF0A2106B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AE252C3-4905-4A1E-8CF7-554CF0A2106B}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AE252C3-4905-4A1E-8CF7-554CF0A2106B}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
+		{2AE252C3-4905-4A1E-8CF7-554CF0A2106B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AE252C3-4905-4A1E-8CF7-554CF0A2106B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E01991DA-7D23-4ABF-A99F-A4F34390745D}.Debug|Any CPU.ActiveCfg = Debug
+		{E01991DA-7D23-4ABF-A99F-A4F34390745D}.Debug|Any CPU.Build.0 = Debug
+		{E01991DA-7D23-4ABF-A99F-A4F34390745D}.Debug|Any CPU.Deploy.0 = Debug
+		{E01991DA-7D23-4ABF-A99F-A4F34390745D}.DebugLocal|Any CPU.ActiveCfg = DebugLocal
+		{E01991DA-7D23-4ABF-A99F-A4F34390745D}.DebugLocal|Any CPU.Build.0 = DebugLocal
+		{E01991DA-7D23-4ABF-A99F-A4F34390745D}.Release|Any CPU.ActiveCfg = Release
+		{E01991DA-7D23-4ABF-A99F-A4F34390745D}.Release|Any CPU.Build.0 = Release
+		{E01991DA-7D23-4ABF-A99F-A4F34390745D}.Release|Any CPU.Deploy.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7688F59A-2B88-4B1A-A33E-DEEE7F789B43}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://titan:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = FlexiPlace\\FlexiPlace.csproj
+		SccProjectName1 = FlexiPlace
+		SccLocalPath1 = FlexiPlace
+		SccProjectUniqueName2 = FlexiPlaceReports\\FlexiPlaceReports.rptproj
+		SccProjectName2 = FlexiPlaceReports
+		SccLocalPath2 = FlexiPlaceReports
+		SccProjectUniqueName3 = FlexiPlaceWinServiceTopShelf\\FlexiPlaceWinServiceTopShelf.csproj
+		SccProjectName3 = FlexiPlaceWinServiceTopShelf
+		SccLocalPath3 = FlexiPlaceWinServiceTopShelf
+	EndGlobalSection
+EndGlobal

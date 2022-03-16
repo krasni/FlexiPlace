@@ -1,0 +1,110 @@
+﻿@model ZahtjevEditViewModel
+
+@{
+    ViewBag.Title = "Promjena zahtjeva";
+}
+
+<form asp-controller="Zahtjev" asp-action="Edit" method="post" class="mt-3">
+    <input hidden asp-for="StatusNaziv" />
+    <input hidden asp-for="ReturnUrl" />
+
+    <div class="form-group row">
+        <label asp-for="Id" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input readonly asp-for="Id" class="form-control" placeholder="Id">
+            <span asp-validation-for="Id" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="ImePrezimePodnositelj" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input readonly asp-for="ImePrezimePodnositelj" class="form-control" placeholder="ImePrezimePodnositelj">
+            <span asp-validation-for="ImePrezimePodnositelj" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="OrganizacijskaJedinicaPodnositelj" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input readonly asp-for="OrganizacijskaJedinicaPodnositelj" class="form-control" placeholder="OrganizacijskaJedinicaPodnositelj">
+            <span asp-validation-for="OrganizacijskaJedinicaPodnositelj" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="OdobravateljImePrezime" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input readonly asp-for="OdobravateljImePrezime" class="form-control" placeholder="OdobravateljImePrezime">
+            <span asp-validation-for="OdobravateljImePrezime" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="DatumOtvaranja" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input readonly type="text" asp-for="DatumOtvaranja" class="form-control" placeholder="DatumOtvaranja">
+            <span asp-validation-for="DatumOtvaranja" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="DatumOdsustva" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input readonly type="text" asp-for="DatumOdsustva" class="form-control" placeholder="DatumOdsustva">
+            <span asp-validation-for="DatumOdsustva" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="VrijemeOdsustvaOd" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input readonly type="text" asp-for="VrijemeOdsustvaOd" class="form-control" placeholder="DatumOdsustva">
+            <span asp-validation-for="VrijemeOdsustvaOd" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="VrijemeOdsustvaDo" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input readonly type="text" asp-for="VrijemeOdsustvaDo" class="form-control" placeholder="DatumOdsustva">
+            <span asp-validation-for="VrijemeOdsustvaDo" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="Komentar" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <textarea readonly rows="5" cols="40" asp-for="Komentar" class="form-control"></textarea>
+            <span asp-validation-for="Komentar" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="StatusID" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(x => Model.StatusID, new SelectList(Model.Statusi, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "StatusID" })
+            <span asp-validation-for="StatusID" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="RazlogOdbijanja" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <textarea rows="5" cols="40" asp-for="RazlogOdbijanja" class="form-control"></textarea>
+            <span asp-validation-for="RazlogOdbijanja" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Spremi</button>
+            <a href="@Model.ReturnUrl" class="btn btn-primary">Odustani</a>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+<script src="~/js/ZahtjevEdit.js" asp-append-version="true"></script>
+}

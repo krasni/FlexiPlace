@@ -1,0 +1,8 @@
+baza na res
+bp2 
+
+sphinx iis aplikacija
+
+sada je test na hyperion, iis.
+
+http://hyperion:8070/ je test adresa.

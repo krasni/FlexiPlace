@@ -1,0 +1,13 @@
+﻿@if (ViewBag.ErrorTitle == null)
+{
+    <h3>Dogodila se greška prilikom procesiranja vašeg zahtjeva
+        Radimo na tome da to riješimo.    
+    </h3>
+
+    <h5>Molim kontaktirajte nas na DirZaRazvojAplikacijskihSustava@hanfa.hr</h5>
+}
+else
+{
+    <h1 class="text-danger">@ViewBag.ErrorTitle</h1>
+    <h6 class="text-danger">@ViewBag.ErrorMessage</h6>
+}

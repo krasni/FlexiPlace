@@ -1,0 +1,78 @@
+﻿@model FlexiPlace.Models.NeradniDanExcel
+
+@{
+    ViewBag.Title = "Import Excela sa neradnim danima";
+}
+
+<form id="form1" enctype="multipart/form-data" method="post" class="mt-3">
+
+    <div class="form-group row">
+        <label asp-for="ExcelNeradniDani" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <div class="custom-file">
+                <input asp-for="ExcelNeradniDani" accept=".xlsx" class="form-control custom-file-input">
+                <label class="custom-file-label">Odaberi datoteku...</label>
+            </div>
+        </div>
+    </div>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Importiraj</button>
+            <a asp-controller="Zahtjev" asp-action="Index" class="btn btn-primary">Odustani</a>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts{
+
+    <script>
+    $().ready(function () {
+        $('#form1').submit(function (evt) {
+            if ($('#form1').valid()) {
+                uploadFile();
+                evt.preventDefault();
+            }
+            else {
+                evt.preventDefault();
+            }
+        });
+
+        $('.custom-file-input').on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).next('.custom-file-label').html(fileName);
+        })
+    });
+
+    function uploadFile() {
+    var formData = new FormData();
+
+    var file = document.getElementById('ExcelNeradniDani').files[0];
+    formData.append("formFile", file);
+
+    $.ajax({
+    url: "@Url.Action("ImportNeradniDan", "Administracija")",
+    type: "POST",
+    data: formData,
+    processData: false,  // tell jQuery not to process the data
+    contentType: false,   // tell jQuery not to set contentType
+
+        success: function (results) {
+            if (results.code === 0) {
+                alert('Datoteka je uspješno importirana.');
+            }
+            else {
+                alert('Došlo je do greške prilikom importa: ' + results.msg);
+            }
+        },
+
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert('Dogodila se greška kod import datuma za praznike.');
+        }
+    });
+    }
+    </script>
+}

@@ -1,0 +1,16 @@
+﻿@model int
+
+@{
+    ViewBag.Title = "Greška 404";
+}
+
+<div class="alert alert-danger mt-1 mb-1">
+    <h4>Greška 404 : </h4>
+    <hr />
+    <h5>
+        Zahtjev sa Id = @Model nije pronađen
+    </h5>
+</div>
+<a asp-action="index" asp-controller="Zahtjev" class="btn btn-outline-success" style="width:auto">
+    Stisnite ovdje da se vratite na početnu stranicu
+</a>

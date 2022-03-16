@@ -1,0 +1,230 @@
+﻿@model ZahtjevListViewModel
+@inject Microsoft.AspNetCore.Authorization.IAuthorizationService authorizationService
+
+@{
+    ViewBag.Title = "Pregled zahtjeva";
+}
+
+<h2>Pregled zahtjeva</h2>
+
+<form asp-action="Index" method="get" asp-route-ZahtjevStrana="1" asp-route-StatusNaziv="">
+    <div class="card">
+        <div class="card-header bg-primary text-light">
+            <h5 class="card-title">Pretraga zahtjeva</h5>
+        </div>
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col">
+                    <label class="control-label">Status</label>
+                    <select asp-for="StatusNaziv" asp-items=@(new SelectList(Model.Statusi, "Naziv", "Naziv")) class="form-control">
+                        <option value="Svi">Svi</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col">
+                    <label class="control-label">Flexi datum od</label>
+                    <div class="input-group">
+                        <input asp-for="DatumOdsustvaOd" class="form-control" type="text">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled="">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col">
+                    <label class="control-label">Flexi datum do</label>
+                    <div class="input-group">
+                        <input asp-for="DatumOdsustvaDo" class="form-control" type="text">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled="">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col">
+                    <label class="control-label">Datum zaprimanja zahtjeva od</label>
+                    <div class="input-group">
+                        <input asp-for="DatumOtvaranjaOd" class="form-control" type="text">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled="">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col">
+                    <label class="control-label">Datum zaprimanja zahtjeva do</label>
+                    <div class="input-group">
+                        <input asp-for="DatumOtvaranjaDo" class="form-control" type="text">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled="">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label class="control-label">Organizacijska jedinica podnositelj</label>
+                    <select asp-for="PodnositeljOrganizacijskaJedinicaNaziv" asp-items=@(new SelectList(Model.PodnositeljOrganizacijskeJedinice, "OrgNaziv", "OrgNaziv")) class="form-control">
+                        <option value="Sve">Sve</option>
+                    </select>
+                </div>
+
+                <div class="form-group col">
+                    <label class="control-label">Organizacijska jedinica odobravatelj</label>
+                    <select asp-for="OdobravateljOrganizacijskaJedinicaNaziv" asp-items=@(new SelectList(Model.OdobravateljOrganizacijskeJedinice, "OrgNaziv", "OrgNaziv")) class="form-control">
+                        <option value="Sve">Sve</option>
+                    </select>
+                </div>
+
+                <div class="form-group col">
+                    <label class="control-label">Podnositelj</label>
+                    <input asp-for="Podnositelj" class="form-control">
+                </div>
+
+                <div class="form-group col">
+                    <label class="control-label">Odobravatelj</label>
+                    <input asp-for="Odobravatelj" class="form-control">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card-footer bg-primary text-light">
+            <div class="row">
+                <div class="col-8">
+                    <input type="submit" value="Pretraži" class="btn btn-success m-1" />
+                    <a asp-controller="Zahtjev" asp-action="Create" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()" class="btn btn-info">Kreiraj zahtjev</a>
+                </div>
+                <div class="col-4">
+                    <p class="text-right">
+                        Ukupno zapisa: @Model.PagingInfo.TotalItems
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <table class="table table-bordered table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th style="width: 2%">
+                        Id
+                    </th>
+                    <th style="width: 10%">
+                        @Html.DisplayNameFor(model => model.Zahtjevi.First().ImePrezimePodnositelj)
+                    </th>
+                    <th style="width: 20%">
+                        @Html.DisplayNameFor(model => model.Zahtjevi.First().OrganizacijskaJedinicaPodnositelj)
+                    </th>
+                    <th style="width: 9%">
+                        @Html.DisplayNameFor(model => model.Zahtjevi.First().OdobravateljImePrezime)
+                    </th>
+                    <th style="width: 9%">
+                        @Html.DisplayNameFor(model => model.Zahtjevi.First().Status)
+                    </th>
+                    <th style="width: 10%">
+                        @Html.DisplayNameFor(model => model.Zahtjevi.First().DatumOtvaranja)
+                    </th>
+                    <th style="width: 8%">
+                        @Html.DisplayNameFor(model => model.Zahtjevi.First().DatumOdsustva)
+                    </th>
+                    <th style="width: 15%" align="center">
+                        Akcije
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var zahtjev in Model.Zahtjevi)
+                {
+                    <tr>
+                        <td>@zahtjev.Id</td>
+                        <td>@zahtjev.ImePrezimePodnositelj</td>
+                        <td>@zahtjev.OrganizacijskaJedinicaPodnositelj</td>
+                        <td>@zahtjev.OdobravateljImePrezime</td>
+                        <td>@zahtjev.Status.Naziv</td>
+                        <td>@String.Format("{0:dd.MM.yyyy HH:mm}", zahtjev.DatumOtvaranja)</td>
+                        <td>@String.Format("{0:dd.MM.yyyy}", zahtjev.DatumOdsustva)</td>
+
+                        <td>
+                            @if ((await authorizationService.AuthorizeAsync(User, zahtjev, "CanViewDetailsZahtjev")).Succeeded)
+                            {
+                                <a asp-action="details" asp-controller="zahtjev" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()" asp-route-id="@zahtjev.Id">Detalji</a>
+                                @Html.Raw(" | ")
+                            }
+                            else
+                            {
+                                @Html.Raw("Detalji | ")
+                            }
+
+                            @if ((await authorizationService.AuthorizeAsync(User, zahtjev, "CanEditZahtjev")).Succeeded)
+                            {
+                                <a asp-action="edit" asp-controller="zahtjev" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()" asp-route-id="@zahtjev.Id">Promjeni</a>
+                                @Html.Raw(" | ")
+                            }
+                            else
+                            {
+                                @Html.Raw("Promjeni | ")
+                            }
+
+                            @if ((await authorizationService.AuthorizeAsync(User, zahtjev, "CanDeleteZahtjev")).Succeeded)
+                            {
+                                <a asp-action="delete" asp-controller="zahtjev" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()" asp-route-id="@zahtjev.Id" onclick="return confirm('Jeste li ste sigurni da želite obrisati zahtjev?')">Obriši</a>
+                                @Html.Raw(" | ")
+                            }
+                            else
+                            {
+                                @Html.Raw("Obriši | ")
+                            }
+
+                            @if ((await authorizationService.AuthorizeAsync(User, zahtjev, "CanCancelZahtjev")).Succeeded)
+                            {
+                                <a asp-action="cancel" asp-controller="zahtjev" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()" asp-route-id="@zahtjev.Id" onclick="return confirm('Jeste li ste sigurni da želite otkazati zahtjev?')">Otkaži</a>
+                            }
+                            else
+                            {
+                                @Html.Raw("Otkaži")
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+         page-class="btn" page-class-normal="btn-secondary"
+         page-class-selected="btn-primary" page-url-statusNaziv="@Model.StatusNaziv"
+         page-url-podnositeljOrganizacijskaJedinicaNaziv = "@Model.PodnositeljOrganizacijskaJedinicaNaziv"
+         page-url-odobravateljOrganizacijskaJedinicaNaziv = "@Model.OdobravateljOrganizacijskaJedinicaNaziv"
+         page-url-podnositelj = "@Model.Podnositelj" page-url-odobravatelj = "@Model.Odobravatelj"
+         page-url-datumOtvaranjaOd = "@Model.DatumOtvaranjaOd" page-url-datumOtvaranjaDo = "@Model.DatumOtvaranjaDo"
+         page-url-datumOdsustvaOd = "@Model.DatumOdsustvaOd" page-url-datumOdsustvaDo = "@Model.DatumOdsustvaDo"
+         class="btn-group pull-right m-1">
+    </div>
+</form>
+
+@section Scripts {
+    <script src="~/js/Index.js" asp-append-version="true"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#Podnositelj').autocomplete({
+                source: '/Zahtjev/PretraziDjelatnike'
+            });
+
+            $('#Odobravatelj').autocomplete({
+                source: '/Zahtjev/PretraziDjelatnike'
+            });
+        });
+    </script>
+}
