@@ -32,6 +32,7 @@ using System.Globalization;
 
 namespace FlexiPlace.Controllers
 {
+    [Authorize]
     public class ZahtjevController : Controller
     {
         private readonly AppDbContext dbContext;
